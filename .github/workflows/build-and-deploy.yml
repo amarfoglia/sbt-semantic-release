@@ -1,0 +1,51 @@
+name: CI/CD
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README.md'
+
+# permissions: write-all
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare environment
+        run: |
+          sbt assembly
+
+      - name: Upload Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: |
+            ./*/target/scala-*/*.jar
+
+  release:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download Build
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact
+
+      - name: Semantic Release
+        uses: amarfoglia/semantic-release-action@v1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          checkout: false
