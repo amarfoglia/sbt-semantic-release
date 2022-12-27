@@ -20,7 +20,9 @@ jobs:
 
       - name: Prepare environment
         run: |
-          sbt assembly
+          sbt
+          project pss-patient-core
+          assembly
 
       - name: Upload Build
         uses: actions/upload-artifact@v3
