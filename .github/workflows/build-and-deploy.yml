@@ -18,11 +18,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Prepare environment
+      - name: Assembly jars
         run: |
-          sbt
-          project pss-patient-core
-          assembly
+          sbt pss-patient-core/assembly
 
       - name: Upload Build
         uses: actions/upload-artifact@v3
