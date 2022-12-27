@@ -2,7 +2,6 @@ import Dependencies.*
 
 ThisBuild / name := "almahealthdb-dt-platform"
 ThisBuild / scalaVersion := "3.2.0"
-ThisBuild / version := "0.1.0-SNAPSHOT"
 
 run / fork := false
 Global / cancelable := false
