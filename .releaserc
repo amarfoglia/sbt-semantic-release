@@ -112,7 +112,7 @@
     ],
     ["@semantic-release/github", {
       "assets": [
-        {"path": "*/*/target/scala-*/*.jar"}
+        {"path": "*/**/target/scala-*/*.jar"}
       ]
     }],
     "@semantic-release/git"
